@@ -1,6 +1,6 @@
-package com.bjoggis.admin;
+package com.bjoggis.chat;
 
-import com.bjoggis.admin.properties.AdminProperties;
+import com.bjoggis.chat.properties.AiChatProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
@@ -21,10 +21,10 @@ import reactor.core.publisher.Mono;
 @SpringBootApplication
 @ConfigurationPropertiesScan
 @EnableWebFluxSecurity
-public class AdminGatewayApplication {
+public class AiChatGatewayApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(AdminGatewayApplication.class, args);
+    SpringApplication.run(AiChatGatewayApplication.class, args);
   }
 
 
@@ -38,7 +38,6 @@ public class AdminGatewayApplication {
         .oauth2Login(oauth -> {
         })
         .csrf(
-//            csrf -> csrf.csrfTokenRepository(new CookieServerCsrfTokenRepository()));
             csrf -> csrf.disable());
     return httpSecurity.build();
   }
@@ -61,14 +60,13 @@ public class AdminGatewayApplication {
   }
 
   @Bean
-  RouteLocator gateway(RouteLocatorBuilder rlb, AdminProperties properties) {
+  RouteLocator gateway(RouteLocatorBuilder rlb, AiChatProperties properties) {
     // @formatter:off
     return rlb.routes()
-        .route(r -> r.path("/api/spillhuset/**")
+        .route(r -> r.path("/v1/**")
             .filters(f -> f
-                .tokenRelay()
-                .rewritePath("/api/spillhuset/(?<segment>.*)", "/${segment}"))
-            .uri("http://spillhuset-bot-service"))
+                .tokenRelay())
+            .uri(properties.openAiUrl()))
         .route(r -> r.path("/**")
             .filters(GatewayFilterSpec::tokenRelay)
             .uri(properties.uiUrl()))

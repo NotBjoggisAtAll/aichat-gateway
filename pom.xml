@@ -7,9 +7,9 @@
     <version>3.1.1</version>
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
-  <groupId>com.bjoggis.admin</groupId>
-  <artifactId>admin-gateway</artifactId>
-  <version>1.4-SNAPSHOT</version>
+  <groupId>com.bjoggis.chat</groupId>
+  <artifactId>aichat-gateway</artifactId>
+  <version>1.0-SNAPSHOT</version>
   <properties>
     <java.version>17</java.version>
     <spring-cloud.version>2022.0.3</spring-cloud.version>

@@ -75,7 +75,7 @@ jobs:
 
       - name: Update docker-compose file
         run: |
-          sed -i "s/image: ghcr.io\/notbjoggisatall\/admin-gateway:.*$/image: ghcr.io\/notbjoggisatall\/admin-gateway:${VERSION:1}/" manifests/app.yaml
+          sed -i "s/image: ghcr.io\/notbjoggisatall\/aichat-gateway:.*$/image: ghcr.io\/notbjoggisatall\/aichat-gateway:${VERSION:1}/" manifests/app.yaml
         shell: bash
         env:
           VERSION: ${{ github.event.release.tag_name }}

@@ -1,11 +1,11 @@
-package com.bjoggis.admin.properties;
+package com.bjoggis.chat.properties;
 
 import jakarta.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
-@ConfigurationProperties(prefix = "bjoggis.admin")
+@ConfigurationProperties(prefix = "bjoggis.aichat")
 @Validated
-public record AdminProperties(@NotNull String uiUrl) {
+public record AiChatProperties(@NotNull String uiUrl, @NotNull String openAiUrl) {
 
 }
