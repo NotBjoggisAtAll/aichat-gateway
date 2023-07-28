@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aichat-deployment
+  name: aichat-gateway-deployment
   namespace: default
   labels:
     app: aichat-gateway
