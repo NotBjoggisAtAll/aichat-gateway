@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  admin-gateway:
+    image: ghcr.io/notbjoggisatall/admin-gateway:1.2
+    restart: always
+    container_name: admin-gateway
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker,prod
+      - "VIRTUAL_HOST=admin.bjoggis.com"
+      - "VIRTUAL_PORT=8082"
+      - "LETSENCRYPT_HOST=admin.bjoggis.com"
+      - "LETSENCRYPT_EMAIL=jonas.bjorge.andersen@gmail.com"
+    networks:
+      - 'internal'
+networks:
+  internal:
+    external: true

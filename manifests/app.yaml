@@ -1,0 +1,70 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-deployment
+  namespace: default
+  labels:
+    app: admin-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin-gateway
+  template:
+    metadata:
+      labels:
+        app: admin-gateway
+    spec:
+      containers:
+        - name: admin-gateway-container
+          image: ghcr.io/notbjoggisatall/admin-gateway:1.3
+          imagePullPolicy: Always
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: SPRING_CLOUD_CONFIG_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: config-server-credentials
+                  key: username
+            - name: SPRING_CLOUD_CONFIG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: config-server-credentials
+                  key: password
+          ports:
+            - containerPort: 8082
+      imagePullSecrets:
+        - name: credentials
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-gateway-service
+spec:
+  selector:
+    app: admin-gateway
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8082
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: admin-gateway-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: admin.bjoggis.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: admin-gateway-service
+                port:
+                  number: 80
