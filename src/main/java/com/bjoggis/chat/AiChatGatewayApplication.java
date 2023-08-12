@@ -33,6 +33,10 @@ public class AiChatGatewayApplication {
     httpSecurity
         .authorizeExchange(exchanges ->
             exchanges
+                .pathMatchers("/actuator/**").permitAll()
+        )
+        .authorizeExchange(exchanges ->
+            exchanges
                 .anyExchange().authenticated()
         )
         .oauth2Login(oauth -> {

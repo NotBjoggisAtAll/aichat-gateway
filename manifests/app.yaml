@@ -20,6 +20,10 @@ spec:
         - name: aichat-gateway-container
           image: ghcr.io/notbjoggisatall/aichat-gateway:1.0-SNAPSHOT
           imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8083
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: prod
@@ -35,6 +39,7 @@ spec:
                   key: password
           ports:
             - containerPort: 8082
+            - containerPort: 8083
       imagePullSecrets:
         - name: credentials
 ---
