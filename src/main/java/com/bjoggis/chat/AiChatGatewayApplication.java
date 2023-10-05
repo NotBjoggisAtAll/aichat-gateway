@@ -35,6 +35,10 @@ public class AiChatGatewayApplication {
             exchanges
                 .pathMatchers("/actuator/**").permitAll()
         )
+        .authorizeExchange(authorizeExchangeSpec ->
+            authorizeExchangeSpec
+                .pathMatchers("/ws/**").authenticated()
+        )
         .authorizeExchange(exchanges ->
             exchanges
                 .anyExchange().authenticated()
@@ -71,6 +75,9 @@ public class AiChatGatewayApplication {
             .filters(f -> f
                 .tokenRelay())
             .uri(properties.openAiUrl()))
+        .route(r -> r.path("/ws")
+            .filters(f -> f.tokenRelay())
+            .uri("http://localhost:11000"))
         .route(r -> r.path("/**")
             .filters(GatewayFilterSpec::tokenRelay)
             .uri(properties.uiUrl()))
