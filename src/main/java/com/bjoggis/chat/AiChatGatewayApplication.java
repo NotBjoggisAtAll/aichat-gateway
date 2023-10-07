@@ -77,7 +77,7 @@ public class AiChatGatewayApplication {
             .uri(properties.openAiUrl()))
         .route(r -> r.path("/ws")
             .filters(f -> f.tokenRelay())
-            .uri("http://localhost:11000"))
+            .uri(properties.monoUrl()))
         .route(r -> r.path("/**")
             .filters(GatewayFilterSpec::tokenRelay)
             .uri(properties.uiUrl()))

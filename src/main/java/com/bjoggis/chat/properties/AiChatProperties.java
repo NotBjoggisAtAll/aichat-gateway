@@ -6,6 +6,6 @@ import org.springframework.validation.annotation.Validated;
 
 @ConfigurationProperties(prefix = "bjoggis.aichat")
 @Validated
-public record AiChatProperties(@NotNull String uiUrl, @NotNull String openAiUrl) {
+public record AiChatProperties(@NotNull String uiUrl, @NotNull String openAiUrl, @NotNull String monoUrl) {
 
 }
