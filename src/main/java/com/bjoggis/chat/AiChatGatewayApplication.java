@@ -8,6 +8,7 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.GatewayFilterSpec;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.csrf.CsrfToken;
@@ -72,9 +73,11 @@ public class AiChatGatewayApplication {
     // @formatter:off
     return rlb.routes()
         .route(r -> r.path("/v1/**")
+            .and()
+            .method(HttpMethod.POST, HttpMethod.GET)
             .filters(f -> f
                 .tokenRelay())
-            .uri(properties.openAiUrl()))
+            .uri("http://localhost:11000"))
         .route(r -> r.path("/ws")
             .filters(f -> f.tokenRelay())
             .uri(properties.monoUrl()))
