@@ -73,11 +73,9 @@ public class AiChatGatewayApplication {
     // @formatter:off
     return rlb.routes()
         .route(r -> r.path("/v1/**")
-            .and()
-            .method(HttpMethod.POST, HttpMethod.GET)
             .filters(f -> f
                 .tokenRelay())
-            .uri("http://localhost:11000"))
+            .uri(properties.monoUrl()))
         .route(r -> r.path("/ws")
             .filters(f -> f.tokenRelay())
             .uri(properties.monoUrl()))
