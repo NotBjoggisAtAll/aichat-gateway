@@ -59,4 +59,4 @@ jobs:
           token: ${{ secrets.INFRA_WEBHOOK }}
           repository: notbjoggisatall/infrastructure
           event-type: bump-application
-          client-payload: '{"application: "aichat-gateway"}'
+          client-payload: '{"application": "aichat-gateway"}'
