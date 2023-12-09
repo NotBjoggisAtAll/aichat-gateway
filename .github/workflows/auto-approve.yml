@@ -1,0 +1,10 @@
+name: Auto Approve
+
+on:
+  pull_request
+
+jobs:
+  auto-approve:
+    permissions:
+      pull-requests: write
+    uses: notbjoggisatall/actions/.github/workflows/auto-approver.yml@main
